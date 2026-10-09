@@ -6,14 +6,17 @@ import pyodbc
 
 load_dotenv()
 xrate_api_key = os.getenv("XRATE_API_KEY")
-yesterday = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+yesterday = (date.today() - timedelta(days=5)).strftime("%Y-%m-%d")
 url = f"http://localhost:8701/v1/rates/{yesterday}"
 headers = {
     "X-API-KEY": xrate_api_key
 }
-response = requests.get(url, headers=headers)
-print(response.status_code)
-print(response.json())
+try:
+    response = requests.get(url, headers=headers)
+    print(response.status_code)
+    print(response.json())
+except requests.RequestException as e:
+    print(f"Error occurred while making the request: {e}")
 
 server = os.getenv("DB_SERVER", "localhost,1433")
 database = os.getenv("DB_NAME", "DE_SANDBOX")
@@ -44,11 +47,20 @@ WHEN NOT MATCHED THEN
     INSERT (rate_date, currency, bid, ask, mid, revision, published_at)
     VALUES (source.rate_date, source.currency, source.bid, source.ask, source.mid, source.revision, source.published_at);
 """
+try:
+    rate_date = response.json()["date"]
+    for rate in response.json()["rates"]:
+        cursor.execute(merge_query, rate_date, rate["currency"], rate["bid"], rate["ask"], rate["mid"], rate["revision"], rate["published_at"])
 
-rate_date = response.json()["date"]
-for rate in response.json()["rates"]:
-    cursor.execute(merge_query, rate_date, rate["currency"], rate["bid"], rate["ask"], rate["mid"], rate["revision"], rate["published_at"])
+    cnxn.commit()
+    cursor.close()
+    cnxn.close()
 
-cnxn.commit()
-cursor.close()
-cnxn.close()
+except KeyError as e:
+    print(f"Error occurred while extracting rate data from the response: {e}")
+    cursor.close()
+    cnxn.close()
+except pyodbc.Error as e:
+    print(f"Database error occurred: {e}")
+    cursor.close()
+    cnxn.close()
