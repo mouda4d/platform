@@ -1,0 +1,25 @@
+[2026-10-09T13:18:23.794+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: fx_rates_dag.run_fx_rates_python_script manual__2026-10-09T13:18:21.393809+00:00 [queued]>
+[2026-10-09T13:18:23.802+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: fx_rates_dag.run_fx_rates_python_script manual__2026-10-09T13:18:21.393809+00:00 [queued]>
+[2026-10-09T13:18:23.802+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2026-10-09T13:18:23.834+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): run_fx_rates_python_script> on 2026-10-09 13:18:21.393809+00:00
+[2026-10-09T13:18:23.839+0000] {standard_task_runner.py:60} INFO - Started process 159 to run task
+[2026-10-09T13:18:23.841+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'fx_rates_dag', 'run_fx_rates_python_script', 'manual__2026-10-09T13:18:21.393809+00:00', '--job-id', '12', '--raw', '--subdir', 'DAGS_FOLDER/fx_rates_dag.py', '--cfg-path', '/tmp/tmpfwv2oxd9']
+[2026-10-09T13:18:23.842+0000] {standard_task_runner.py:88} INFO - Job 12: Subtask run_fx_rates_python_script
+[2026-10-09T13:18:23.902+0000] {task_command.py:423} INFO - Running <TaskInstance: fx_rates_dag.run_fx_rates_python_script manual__2026-10-09T13:18:21.393809+00:00 [running]> on host 6cffdf9a2501
+[2026-10-09T13:18:23.988+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='mouda' AIRFLOW_CTX_DAG_ID='fx_rates_dag' AIRFLOW_CTX_TASK_ID='run_fx_rates_python_script' AIRFLOW_CTX_EXECUTION_DATE='2026-10-09T13:18:21.393809+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-10-09T13:18:21.393809+00:00'
+[2026-10-09T13:18:23.989+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-10-09T13:18:23.990+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/airflow/dags/xrate_api_request.py']
+[2026-10-09T13:18:23.998+0000] {subprocess.py:86} INFO - Output:
+[2026-10-09T13:18:28.098+0000] {subprocess.py:93} INFO - [ERROR] API Request failed: HTTPConnectionPool(host='ratebridge-1', port=8000): Max retries exceeded with url: /v1/rates/2026-10-08 (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7244ea313430>: Failed to resolve 'ratebridge-1' ([Errno -5] No address associated with hostname)"))
+[2026-10-09T13:18:28.107+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2026-10-09T13:18:28.118+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-10-09T13:18:28.120+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=fx_rates_dag, task_id=run_fx_rates_python_script, execution_date=20261009T131821, start_date=20261009T131823, end_date=20261009T131828
+[2026-10-09T13:18:28.154+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 12 for task run_fx_rates_python_script (Bash command failed. The command returned a non-zero exit code 1.; 159)
+[2026-10-09T13:18:28.185+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-10-09T13:18:28.197+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

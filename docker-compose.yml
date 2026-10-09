@@ -1,0 +1,21 @@
+services:
+  airflow:
+    image: apache/airflow:2.8.1-python3.10
+    command: airflow standalone
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////opt/airflow/db/airflow.db
+    env_file:
+      - .env
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./db:/opt/airflow/db
+      - ./standalone_admin_password.txt:/opt/airflow/standalone_admin_password.txt
+    ports:
+      - "8080:8080"
+    networks:
+      - qantara_default
+
+networks:
+  qantara_default:
+    external: true
