@@ -25,4 +25,4 @@ have docker desktop open, in CLI run: make -C upstream up
 ### 2.SQL DDL
 Run x-rates-table.sql to define the table for xrates
 ### 3.XrateAPI
-run xrate-api-request.py to extract yesterday's data from the api, insert into the table, rerunning the file for the same day does not cause duplicates.
+run xrate_api_request.py to extract yesterday's data from the api, insert into the table, rerunning the file for the same day does not cause duplicates.
