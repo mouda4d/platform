@@ -1,2 +1,23 @@
+# Environment & Secrets (Never commit credentials)
 .env
+.env.dev
+.env.prod
+
+# Airflow Runtime, Databases & Logs
+logs/
+db/
+*.db
+standalone_admin_password.txt
+
+# Python & Virtual Environments
+__pycache__/
+*.pyc
+.venv/
 venv/
+*.egg-info/
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
