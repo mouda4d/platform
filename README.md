@@ -48,11 +48,8 @@ A production-ready data ingestion pipeline built on Apache Airflow, Docker, and 
 ## 🚀 Quickstart Guide
 
 ### 1. Prerequisites Setup
-Ensure Docker Desktop is running and verify the shared Docker network exists:
+Ensure Docker Desktop is running:
 ```bash
-# Create shared external network if it doesn't exist
-docker network create qantara_default
-
 # Start upstream services (if applicable)
 make -C upstream up
 ```
@@ -71,8 +68,6 @@ Initialize the stack for either Development or Production. The build process aut
 
 ### 3. Access Airflow
 * **URL:** [http://localhost:8080](http://localhost:8080)
-* **Username:** `admin`
-* **Password:** `admin`
 
 ---
 
