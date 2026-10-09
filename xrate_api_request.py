@@ -6,7 +6,7 @@ import pyodbc
 
 load_dotenv()
 xrate_api_key = os.getenv("XRATE_API_KEY")
-yesterday = (date.today() - timedelta(days=5)).strftime("%Y-%m-%d")
+yesterday = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
 url = f"http://localhost:8701/v1/rates/{yesterday}"
 headers = {
     "X-API-KEY": xrate_api_key
