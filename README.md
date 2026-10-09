@@ -22,3 +22,7 @@ Install yourself, whichever you prefer:
 - **Microsoft ODBC Driver 18 for SQL Server** if you'll connect from Python (`pyodbc`, SQLAlchemy).
 ### 1.prepare
 have docker desktop open, in CLI run: make -C upstream up
+### 2.SQL DDL
+Run x-rates-table.sql to define the table for xrates
+### 3.XrateAPI
+run xrate_api_request.py to extract yesterday's data from the api, insert into the table, rerunning the file for the same day does not cause duplicates.
