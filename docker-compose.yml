@@ -2,6 +2,7 @@ services:
   airflow:
     image: apache/airflow:2.8.1-python3.10
     command: airflow standalone
+    restart: unless-stopped
     environment:
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////opt/airflow/db/airflow.db
     env_file:
