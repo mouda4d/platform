@@ -17,5 +17,5 @@ with DAG(
 ) as dag:
     run_ingestion = BashOperator(
         task_id='run_fx_rates_python_script',
-        bash_command='python /opt/airflow/dags/xrate_api_request.py'
+        bash_command='python /opt/airflow/dags/xrate_api_request.py {{ (data_interval_start.strftime("%Y-%m-%d") - macros.timedelta(days=1)).strftime("%Y-%m-%d") }}',
     )

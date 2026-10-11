@@ -4,6 +4,12 @@ import sys
 import pyodbc
 import requests
 
+if len(sys.argv) > 1:
+  target_date = sys.argv[1]
+else:
+  target_date = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")  # Default to yesterday
+
+print(f"[INFO] Running xrate_api_request.py for target date: {target_date}")
 # 1. Fetch Credentials & Environment
 xrate_api_key = os.getenv("xrate_api_key")
 API_URL = os.getenv("API_URL")
@@ -15,8 +21,7 @@ password = os.getenv("DB_PASSWORD")
 driver = "{ODBC Driver 18 for SQL Server}"
 
 # 2. Fetch API Data
-yesterday = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
-url = f"{API_URL}/{yesterday}"
+url = f"{API_URL}/{target_date}"
 headers = {"X-API-KEY": xrate_api_key}
 
 try:
